@@ -1,5 +1,6 @@
 import './App.css';
 import {useState} from "react";
+import {MenuItem, TableCell, TableRow, TextareaAutosize, TextField} from "@mui/material";
 const mockData = [
     {
         id: 1,
@@ -25,9 +26,10 @@ const mockData = [
 ];
 function App() {
   const [data, setData] = useState(mockData)
+  const [selectedRow, setSelectedRow]  = useState(null)
   const handleFieldChange = (e,field,row) => {
-      const updated =
-          {...row ,[field]: e.target.value};
+      selectedRow(row.id)
+      const updated = {...row ,[field]: e.target.value};
       setData((prev) => (
           prev?.map((item) =>  row.id === item.id ? {...item,...updated} : item)
           )
@@ -45,31 +47,74 @@ function App() {
           <th>Date</th>
         </tr>
           </thead>
-          <tbody>
           {data?.map((row, index) => (
-          <tr key={index}>
-              <td>
-                  <input
-                      value={row.id}
-                      name={row.id}
-                      onChange={(e) => handleFieldChange(e,'id',row)}
-                  />
-              </td>
-              <td>
-                  Test Name
-              </td>
-              <td>
-                  Test Description
-              </td>
-              <td>
-                  Test Status
-              </td>
-              <td>
-                  Test Date
-              </td>
-          </tr>
-              ))}
-          </tbody>
+              <TableRow
+                  key={row.id}
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => setSelectedRow(row.id)}
+              >
+                  <TableCell>
+                      {selectedRow === row.id ? (
+                          <TextField
+                              type="number"
+                              value={row.id}
+                              onChange={(e) => handleFieldChange(e, 'id', row)}
+                          />
+                      ) : (
+                          row.id
+                      )}
+                  </TableCell>
+                  <TableCell>
+                      {selectedRow === row.id ? (
+                          <TextField
+                              type="text"
+                              value={row.name}
+                              onChange={(e) => handleFieldChange(e, 'name', row)}
+                          />
+                      ) : (
+                          row.name
+                      )}
+                  </TableCell>
+                  <TableCell>
+                      {selectedRow === row.id ? (
+                          <TextareaAutosize
+                              value={row.description}
+                              onChange={(e) => handleFieldChange(e, 'description', row)}
+                          />
+                      ) : (
+                          row.description
+                      )}
+                  </TableCell>
+                  <TableCell>
+                      {selectedRow === row.id ? (
+                          <TextField
+                              type="date"
+                              value={row.date}
+                              onChange={(e) => handleFieldChange(e, 'date', row)}
+                          />
+                      ) : (
+                          row.date
+                      )}
+                  </TableCell>
+                  <TableCell>
+                      {selectedRow === row.id ? (
+                          <TextField
+                              select
+                              value={row.status}
+                              onChange={(e) => handleFieldChange(e, 'status', row)}
+                          >
+                              <MenuItem value="active">Active</MenuItem>
+                              <MenuItem value="pending">Pending</MenuItem>
+                              <MenuItem value="canceled">Canceled</MenuItem>
+                          </TextField>
+                      ) : (
+                          row.status
+                      )}
+                  </TableCell>
+                  <TableCell>
+                  </TableCell>
+              </TableRow>
+          ))}
       </table>
   );
 }
