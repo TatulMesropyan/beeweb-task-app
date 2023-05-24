@@ -25,9 +25,15 @@ const mockData = [
 ];
 function App() {
   const [data, setData] = useState(mockData)
-  const handleFieldChange = (e,field) => {
-      const updated = {...data ,[field]:e.target.value}
+  const handleFieldChange = (e,field,row) => {
+      const updated =
+          {...row ,[field]: e.target.value};
+      setData((prev) => (
+          prev?.map((item) =>  row.id === item.id ? {...item,...updated} : item)
+          )
+      )
   }
+  console.log("Data", data)
   return (
       <table>
           <thead>
@@ -40,13 +46,13 @@ function App() {
         </tr>
           </thead>
           <tbody>
-          {data.map(({id, name, description, status, date}, index) => (
+          {data?.map((row, index) => (
           <tr key={index}>
               <td>
                   <input
-                      value={id}
-                      name={id}
-                      onChange={(e) => handleFieldChange(e,'id')}
+                      value={row.id}
+                      name={row.id}
+                      onChange={(e) => handleFieldChange(e,'id',row)}
                   />
               </td>
               <td>
