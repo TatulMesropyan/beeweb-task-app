@@ -16,6 +16,7 @@ export const Body = ({ tableData, onFieldChange }) => {
       prev?.map((item) => (row.id === item.id ? { ...item, ...updated } : item))
     );
   };
+
   return (
     <TableBody>
       {tableData?.map((row, index) => (

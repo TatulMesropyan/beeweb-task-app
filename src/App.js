@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { Table } from '@mui/material';
 import { Body as TableBody } from './Body';
 import { Header as TableHeader } from './Header';
-import { ref, onValue } from 'firebase/database';
+import { ref, update, onValue } from 'firebase/database';
 import { db } from './firebase';
 
 const titles = ['Id', 'Name', 'Description', 'Date', 'Status'];
 function App() {
   const [data, setData] = useState([]);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,10 +26,15 @@ function App() {
     fetchData();
   }, []);
 
+  const filteredData = query ? data.filter((row) =>
+      Object.values(row).some((value) =>
+          value.toString().toLowerCase() === query.toLowerCase())
+  ) : data;
+
   return (
     <Table>
       <TableHeader titles={titles} />
-      <TableBody tableData={data} onFieldChange={setData} />
+      <TableBody tableData={filteredData} onFieldChange={setData} />
     </Table>
   );
 }
