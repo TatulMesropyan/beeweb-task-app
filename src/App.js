@@ -1,8 +1,8 @@
 import './App.css';
 import { useState } from 'react';
-import {Table} from '@mui/material';
-import {Body as TableBody} from "./TableBody";
-import {TableHeader} from "./TableHeader";
+import { Table } from '@mui/material';
+import { Body as TableBody } from './Body';
+import { Header as TableHeader } from './Header';
 const mockData = [
   {
     id: 1,
@@ -26,19 +26,13 @@ const mockData = [
     status: 'canceled'
   }
 ];
-const titles = [
-    "Id", "Name", "Description", "Date", "Status"
-]
+const titles = ['Id', 'Name', 'Description', 'Date', 'Status'];
 function App() {
   const [data, setData] = useState(mockData);
-  const handleFieldChange = (e, field, row) => {
-    const updated = { ...row, [field]: e.target.value };
-    setData((prev) => prev?.map((item) => (row.id === item.id ? { ...item, ...updated } : item)));
-  };
   return (
     <Table>
-      <TableHeader titles={titles}/>
-      <TableBody tableData={data} onFieldChange={handleFieldChange}/>
+      <TableHeader titles={titles} />
+      <TableBody tableData={data} onFieldChange={setData} />
     </Table>
   );
 }
