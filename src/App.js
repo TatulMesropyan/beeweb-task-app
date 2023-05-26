@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Table } from '@mui/material';
 import { Body as TableBody } from './Body';
 import { Header as TableHeader } from './Header';
@@ -26,15 +26,19 @@ function App() {
     fetchData();
   }, []);
 
-  const filteredData = query
-    ? data.filter((row) =>
-        Object.values(row).some((value) => value.toString().toLowerCase() === query.toLowerCase())
-      )
-    : data;
+  const filteredData = useMemo(() => {
+    query
+      ? data.filter((row) =>
+          Object.values(row).some(
+            (value) => value?.toString().toLowerCase() === query?.toString().toLowerCase()
+          )
+        )
+      : data;
+  }, [query, data]);
 
   return (
     <Table>
-      <TableHeader titles={titles} />
+      <TableHeader titles={titles} onQueryChange={setQuery} />
       <TableBody tableData={filteredData} onFieldChange={setData} />
     </Table>
   );

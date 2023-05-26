@@ -1,6 +1,6 @@
-import { TableCell, TableHead, TableRow } from '@mui/material';
-
-export const Header = ({ titles }) => {
+import { TableCell, TableHead, TableRow, TextField } from '@mui/material';
+import React from 'react';
+export const Header = ({ titles, onQueryChange }) => {
   return (
     <TableHead>
       <TableRow>
