@@ -1,15 +1,10 @@
-import {
-  MenuItem,
-  TableBody,
-  TableCell,
-  TableRow,
-  TextareaAutosize,
-  TextField
-} from '@mui/material';
+import { MenuItem, TableBody, TableRow, TextareaAutosize, TextField } from '@mui/material';
 import { useState } from 'react';
+import { TableCell } from './';
 
 export const Body = ({ tableData, onFieldChange }) => {
   const [selectedRow, setSelectedRow] = useState(null);
+  const [selectedField, setSelectedField] = useState(null);
   const handleFieldChange = (e, field, row) => {
     const updated = { ...row, [field]: e.target.value };
     onFieldChange((prev) =>
@@ -17,12 +12,26 @@ export const Body = ({ tableData, onFieldChange }) => {
     );
   };
 
+  const handleSelectField = (row, field) => {
+    setSelectedRow(row.id);
+    setSelectedField(field);
+  };
+
+  const isFieldSelected = (row, field) => {
+    return selectedRow === row.id && selectedField === field;
+  };
+
+  const handleSave = () => {
+    setSelectedRow(null);
+    setSelectedField(null);
+  };
+  console.log(selectedField, selectedRow);
   return (
     <TableBody>
       {tableData?.map((row, index) => (
-        <TableRow key={index} sx={{ cursor: 'pointer' }} onClick={() => setSelectedRow(row.id)}>
-          <TableCell>
-            {selectedRow === row.id ? (
+        <TableRow key={index} sx={{ cursor: 'pointer' }} onBlur={handleSave}>
+          <TableCell onClick={() => handleSelectField(row, 'id')}>
+            {isFieldSelected(row, 'id') ? (
               <TextField
                 type="number"
                 value={row.id}
@@ -32,8 +41,8 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.id
             )}
           </TableCell>
-          <TableCell>
-            {selectedRow === row.id ? (
+          <TableCell onClick={() => handleSelectField(row, 'name')} onAwayClick={handleSave}>
+            {isFieldSelected(row, 'name') ? (
               <TextField
                 type="text"
                 value={row.name}
@@ -43,8 +52,8 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.name
             )}
           </TableCell>
-          <TableCell>
-            {selectedRow === row.id ? (
+          <TableCell onClick={() => handleSelectField(row, 'description')}>
+            {isFieldSelected(row, 'description') ? (
               <TextareaAutosize
                 value={row.description}
                 onChange={(e) => handleFieldChange(e, 'description', row)}
@@ -53,8 +62,8 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.description
             )}
           </TableCell>
-          <TableCell>
-            {selectedRow === row.id ? (
+          <TableCell onClick={() => handleSelectField(row, 'date')}>
+            {isFieldSelected(row, 'date') ? (
               <TextField
                 type="date"
                 value={row.date}
@@ -64,8 +73,8 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.date
             )}
           </TableCell>
-          <TableCell>
-            {selectedRow === row.id ? (
+          <TableCell onClick={() => handleSelectField(row, 'status')}>
+            {isFieldSelected(row, 'status') ? (
               <TextField
                 select
                 value={row.status}

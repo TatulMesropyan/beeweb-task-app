@@ -1,9 +1,8 @@
-import './App.css';
 import { useEffect, useMemo, useState } from 'react';
 import { Table } from '@mui/material';
-import { Body as TableBody } from './Body';
-import { Header as TableHeader } from './Header';
 import { ref, onValue } from 'firebase/database';
+
+import { TableBody, TableHeader } from './components/';
 import { db } from './firebase';
 
 const titles = ['Id', 'Name', 'Description', 'Date', 'Status'];
