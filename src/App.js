@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Table } from '@mui/material';
+import {Dialog, Table} from '@mui/material';
 import { ref, onValue } from 'firebase/database';
 
 import { TableBody, TableHeader } from './components/';
@@ -8,7 +8,7 @@ import { db } from './firebase';
 const titles = ['Id', 'Name', 'Description', 'Date', 'Status'];
 function App() {
   const [data, setData] = useState([]);
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +29,7 @@ function App() {
     if (query && data) {
       return data?.filter((row) =>
         Object.values(row).some(
-          (value) => value?.toString().toLowerCase() === query?.toString().toLowerCase()
+          (value) => value?.toString().toLowerCase().includes(query?.toString().toLowerCase())
         )
       );
     } else return data;

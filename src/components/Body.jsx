@@ -1,4 +1,4 @@
-import { MenuItem, TableBody, TableRow, TextareaAutosize, TextField } from '@mui/material';
+import { MenuItem, TableBody, TableRow, TextField } from '@mui/material';
 import { useState } from 'react';
 import { TableCell } from './';
 
@@ -22,17 +22,24 @@ export const Body = ({ tableData, onFieldChange }) => {
   };
 
   const handleSave = () => {
-    setSelectedRow(null);
-    setSelectedField(null);
+      setSelectedRow(null)
+    setSelectedField(null)
   };
-  console.log(selectedField, selectedRow);
+
   return (
     <TableBody>
       {tableData?.map((row, index) => (
-        <TableRow key={index} sx={{ cursor: 'pointer' }} onBlur={handleSave}>
-          <TableCell onClick={() => handleSelectField(row, 'id')}>
+        <TableRow key={index} sx={{ cursor: 'pointer' }}>
+          <TableCell
+            onClickAway={handleSave}
+            onClick={() => handleSelectField(row, 'id')}
+            style={{
+              backgroundColor:
+                selectedRow === row.id && selectedField === 'id' ? 'yellow' : 'inherit'
+            }}
+          >
             {isFieldSelected(row, 'id') ? (
-              <TextField
+              <input
                 type="number"
                 value={row.id}
                 onChange={(e) => handleFieldChange(e, 'id', row)}
@@ -41,9 +48,16 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.id
             )}
           </TableCell>
-          <TableCell onClick={() => handleSelectField(row, 'name')} onAwayClick={handleSave}>
+          <TableCell
+            onClickAway={handleSave}
+            onClick={() => handleSelectField(row, 'name')}
+            style={{
+              backgroundColor:
+                selectedRow === row.id && selectedField === 'name' ? 'yellow' : 'inherit'
+            }}
+          >
             {isFieldSelected(row, 'name') ? (
-              <TextField
+              <input
                 type="text"
                 value={row.name}
                 onChange={(e) => handleFieldChange(e, 'name', row)}
@@ -52,9 +66,12 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.name
             )}
           </TableCell>
-          <TableCell onClick={() => handleSelectField(row, 'description')}>
+          <TableCell
+            onClickAway={handleSave}
+            onClick={() => handleSelectField(row, 'description')}
+          >
             {isFieldSelected(row, 'description') ? (
-              <TextareaAutosize
+              <textarea
                 value={row.description}
                 onChange={(e) => handleFieldChange(e, 'description', row)}
               />
@@ -62,9 +79,16 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.description
             )}
           </TableCell>
-          <TableCell onClick={() => handleSelectField(row, 'date')}>
+          <TableCell
+            onClickAway={handleSave}
+            onClick={() => handleSelectField(row, 'date')}
+            style={{
+              backgroundColor:
+                selectedRow === row.id && selectedField === 'date' ? 'yellow' : 'inherit'
+            }}
+          >
             {isFieldSelected(row, 'date') ? (
-              <TextField
+              <input
                 type="date"
                 value={row.date}
                 onChange={(e) => handleFieldChange(e, 'date', row)}
@@ -73,7 +97,14 @@ export const Body = ({ tableData, onFieldChange }) => {
               row.date
             )}
           </TableCell>
-          <TableCell onClick={() => handleSelectField(row, 'status')}>
+          <TableCell
+            onClickAway={handleSave}
+            onClick={() => handleSelectField(row, 'status')}
+            style={{
+              backgroundColor:
+                selectedRow === row.id && selectedField === 'status' ? 'yellow' : 'inherit'
+            }}
+          >
             {isFieldSelected(row, 'status') ? (
               <TextField
                 select

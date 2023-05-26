@@ -1,4 +1,4 @@
-import { TableHead, TableRow, TextField } from '@mui/material';
+import {Stack, TableHead, TableRow, TextField} from '@mui/material';
 import { TableCell } from './';
 import React, { useState } from 'react';
 export const Header = ({ titles, onQueryChange }) => {
@@ -7,13 +7,12 @@ export const Header = ({ titles, onQueryChange }) => {
     <TableHead>
       <TableRow>
         {titles?.map((title, index) => (
-          <React.Fragment key={index}>
-            {showTextfield ? (
-              <TextField onChange={onQueryChange} label={`Search for ${title}...`} />
-            ) : (
-              <TableCell>{title}</TableCell>
-            )}
-          </React.Fragment>
+          <Stack direction='row' key={index}>
+              <input onChange={(e) => onQueryChange(e.target.value)} placeholder={`Search for ${title}...`} />
+              <TableCell>
+                {title}
+              </TableCell>
+          </Stack>
         ))}
       </TableRow>
     </TableHead>
