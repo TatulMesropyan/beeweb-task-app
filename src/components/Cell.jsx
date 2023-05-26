@@ -7,8 +7,8 @@ export const Cell = ({ onClick, children, ...rest }) => {
     }
   };
   return (
-      <td ref={cellRef} onClick={handleClick} {...rest}>
-        {children}
-      </td>
+    <td ref={cellRef} onClick={handleClick} {...rest}>
+      {children}
+    </td>
   );
 };
