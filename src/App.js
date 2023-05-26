@@ -9,7 +9,7 @@ import { db } from './firebase';
 const titles = ['Id', 'Name', 'Description', 'Date', 'Status'];
 function App() {
   const [data, setData] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,13 +27,13 @@ function App() {
   }, []);
 
   const filteredData = useMemo(() => {
-    query
-      ? data.filter((row) =>
-          Object.values(row).some(
-            (value) => value?.toString().toLowerCase() === query?.toString().toLowerCase()
-          )
+    if (query && data) {
+      return data?.filter((row) =>
+        Object.values(row).some(
+          (value) => value?.toString().toLowerCase() === query?.toString().toLowerCase()
         )
-      : data;
+      );
+    } else return data;
   }, [query, data]);
 
   return (
