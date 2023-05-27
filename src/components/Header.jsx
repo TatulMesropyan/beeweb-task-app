@@ -1,17 +1,18 @@
-import { Stack, TableHead, TableRow } from '@mui/material';
+import { TableHead, TableRow } from '@mui/material';
+import React from 'react';
 import { TableCell } from './';
 export const Header = ({ titles, onQueryChange }) => {
   return (
     <TableHead>
       <TableRow>
         {titles?.map((title, index) => (
-          <Stack direction="row" key={index}>
+          <React.Fragment key={index}>
+            <TableCell>{title.toUpperCase()}</TableCell>
             <input
-              onChange={(e) => onQueryChange(e.target.value)}
+              onChange={(e) => onQueryChange({ [title]: e.target.value })}
               placeholder={`Search for ${title}...`}
             />
-            <TableCell>{title.toUpperCase()}</TableCell>
-          </Stack>
+          </React.Fragment>
         ))}
       </TableRow>
     </TableHead>

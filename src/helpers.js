@@ -1,12 +1,14 @@
 import { MenuItem, TextField } from '@mui/material';
 
 export const mapColumnToCell = (row, field, handleFieldChange) => {
+  const inputType = field === 'id' ? 'number' : field === 'date' ? 'date' : 'text';
   switch (field) {
     case 'id':
     case 'name':
+    case 'date':
       return (
         <input
-          type={field === 'id' ? 'number' : 'text'}
+          type={inputType}
           value={row[field]}
           onChange={(e) => handleFieldChange(e, field, row)}
         />
@@ -20,10 +22,6 @@ export const mapColumnToCell = (row, field, handleFieldChange) => {
           <MenuItem value="pending">Pending</MenuItem>
           <MenuItem value="canceled">Canceled</MenuItem>
         </TextField>
-      );
-    case 'date':
-      return (
-        <input type="date" value={row[field]} onChange={(e) => handleFieldChange(e, field, row)} />
       );
     default:
       return null;

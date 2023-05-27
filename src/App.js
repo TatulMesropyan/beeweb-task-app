@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Table } from '@mui/material';
-import { ref, onValue } from 'firebase/database';
+import { onValue, ref } from 'firebase/database';
 
 import { TableBody, TableHeader } from './components/';
 import { db } from './firebase';
@@ -8,7 +8,7 @@ import { db } from './firebase';
 const titles = ['id', 'name', 'description', 'date', 'status'];
 function App() {
   const [data, setData] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,14 +26,20 @@ function App() {
   }, []);
 
   const filteredData = useMemo(() => {
-    if (query && data) {
+    const queryKeys = Object.keys(query);
+    const queryValue = queryKeys.length ? query[queryKeys[0]] : null;
+
+    if (queryValue && data) {
       return data?.filter((row) =>
-        Object.values(row).some((value) =>
-          value?.toString().toLowerCase().includes(query?.toString().toLowerCase())
+        queryKeys.some((field) =>
+          row[field]?.toString().toLowerCase().includes(queryValue?.toString().toLowerCase())
         )
       );
-    } else return data;
+    } else {
+      return data;
+    }
   }, [query, data]);
+
   return (
     <Table>
       <TableHeader titles={titles} onQueryChange={setQuery} />
