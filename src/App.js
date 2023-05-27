@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Box, Button } from '@mui/material';
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, set } from 'firebase/database';
 
 import { TableBody, TableHeader } from './components/';
 import { db } from './firebase';
@@ -24,18 +24,25 @@ function App() {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    const updateData = async () => {
+      const dataRef = ref(db, '/');
+      await set(dataRef, data);
+    };
+
+    updateData();
+  }, [data]);
 
   const addRow = () => {
     setData((prevState) => [
       ...prevState,
-      { id: null, name: '', description: '', date: '', status: '' }
+      { id: 12, name: 'Lana', description: 'Lorem Ipsum', date: '2020-03-11', status: 'active' }
     ]);
   };
 
   const removeRow = () => {
     setData((prevState) => prevState.slice(0, -1));
   };
-  console.log(data);
   const filteredData = useMemo(() => {
     const queryKeys = Object.keys(query);
     const queryValue = queryKeys.length ? query[queryKeys[0]] : null;
