@@ -1,4 +1,4 @@
-import { Box, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import React from 'react';
 import { TableCell } from './';
 export const Header = ({ titles, onQueryChange }) => {
