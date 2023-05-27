@@ -32,6 +32,10 @@ function App() {
     ]);
   };
 
+  const removeRow = () => {
+    setData((prevState) => prevState.slice(0, -1));
+  };
+  console.log(data);
   const filteredData = useMemo(() => {
     const queryKeys = Object.keys(query);
     const queryValue = queryKeys.length ? query[queryKeys[0]] : null;
@@ -58,9 +62,19 @@ function App() {
     >
       <TableHeader titles={titles} onQueryChange={setQuery} />
       <TableBody titles={titles} tableData={filteredData} onFieldChange={setData} />
-      <Button onClick={addRow} variant="contained" fullWidth>
-        Add row
-      </Button>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '15px'
+        }}
+      >
+        <Button onClick={addRow} variant="contained" fullWidth>
+          Add row
+        </Button>
+        <Button onClick={removeRow} variant="contained" color="error" fullWidth>
+          Remove row
+        </Button>
+      </Box>
     </Box>
   );
 }
