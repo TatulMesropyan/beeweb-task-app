@@ -35,7 +35,7 @@ function App() {
   const addRow = async () => {
     setData((prevState) => [
       ...prevState,
-      { id: '', name: '', description: '', date: '', status: 'active' }
+      { id: '', name: '', description: '', date: '', status: '' }
     ]);
   };
 

@@ -1,22 +1,10 @@
 import { Box, ClickAwayListener } from '@mui/material';
 import { useState } from 'react';
-import { TableCell } from './';
-import { mapColumnToCell } from '../helpers';
+import { TableCell, MapColumnToCell } from './';
 
 export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedField, setSelectedField] = useState(null);
-
-  const handleFieldChange = (e, field, index) => {
-    const updatedRow = { ...tableData[index], [field]: e.target.value };
-    const updatedData = [...tableData];
-    updatedData[index] = updatedRow;
-    onFieldChange(updatedData);
-  };
-
-  const isFieldSelected = (index, field) => {
-    return selectedRow === index && selectedField === field;
-  };
 
   const handleSelectField = (index, field) => {
     setSelectedRow(index);
@@ -27,6 +15,12 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
     setSelectedRow(null);
     setSelectedField(null);
     updateData();
+  };
+  const handleFieldChange = (value, field, index) => {
+    const updatedRow = { ...tableData[index], [field]: value };
+    const updatedData = [...tableData];
+    updatedData[index] = updatedRow;
+    onFieldChange(updatedData);
   };
 
   return (
@@ -50,15 +44,22 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
               backgroundColor: '#f8f8f8'
             }}
           >
-            {titles.map((field, idx) => (
+            {titles?.map((field, idx) => (
               <TableCell
                 key={idx}
                 onClick={() => handleSelectField(index, field)}
-                isFieldSelected={isFieldSelected(index, field)}
+                isFieldSelected={selectedRow === index && selectedField === field}
               >
-                {isFieldSelected(index, field)
-                  ? mapColumnToCell(row, field, handleFieldChange, index)
-                  : row[field]}
+                {selectedRow === index && selectedField === field ? (
+                  <MapColumnToCell
+                    row={row}
+                    field={field}
+                    handleFieldChange={handleFieldChange}
+                    index={index}
+                  />
+                ) : (
+                  <h3>{row[field]}</h3>
+                )}
               </TableCell>
             ))}
           </Box>

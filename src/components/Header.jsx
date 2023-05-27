@@ -13,12 +13,14 @@ export const Header = ({ titles, onQueryChange }) => {
         zIndex: 2,
         top: '10px',
         backgroundColor: 'white',
-        padding: '4px 8px 4px'
+        padding: '8px 4px',
+        borderBottom: '1px solid black',
+        width: '100vw'
       }}
     >
       {titles?.map((title, index) => (
         <React.Fragment key={index}>
-          <TableCell>{title.toUpperCase()}</TableCell>
+          <TableCell>{title?.toUpperCase()}</TableCell>
           <input
             onChange={(e) => onQueryChange({ [title]: e.target.value })}
             placeholder={`Search for ${title}...`}
