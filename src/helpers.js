@@ -17,10 +17,10 @@ export const mapColumnToCell = (row, field, handleFieldChange, index) => {
       return <textarea value={row[field]} onChange={(e) => handleFieldChange(e, field, index)} />;
     case 'status':
       return (
-        <TextField select value={row.status} onChange={(e) => handleFieldChange(e, field, index)}>
-          <MenuItem value="active">Active</MenuItem>
-          <MenuItem value="pending">Pending</MenuItem>
-          <MenuItem value="canceled">Canceled</MenuItem>
+        <TextField select value={row[field]} onChange={(e) => handleFieldChange(e, field, index)}>
+          <MenuItem value={'active'}>Active</MenuItem>
+          <MenuItem value={'pending'}>Pending</MenuItem>
+          <MenuItem value={'cancelled'}>Cancelled</MenuItem>
         </TextField>
       );
     default:
