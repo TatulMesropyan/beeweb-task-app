@@ -15,29 +15,28 @@ function App() {
       const dataRef = ref(db, '/');
       await onValue(dataRef, (snapshot) => {
         const firebaseData = snapshot.val();
-        if(firebaseData !== null){
-        const dataArray = Object.keys(firebaseData).map((key) => ({
-          id: key,
-          ...firebaseData[key]
-        }));
-        setData(dataArray);
+        if (firebaseData !== null) {
+          const dataArray = Object.keys(firebaseData).map((key) => ({
+            id: key,
+            ...firebaseData[key]
+          }));
+          setData(dataArray);
         }
       });
     };
     fetchData();
   }, []);
 
-    const updateData = async () => {
-      const dataRef = ref(db, '/');
-      await set(dataRef, data);
-    };
+  const updateData = async () => {
+    const dataRef = ref(db, '/');
+    await set(dataRef, data);
+  };
 
   const addRow = async () => {
     setData((prevState) => [
       ...prevState,
-      { id:'', name: '', description: '', date: '', status: 'active' }
-    ]
-    );
+      { id: '', name: '', description: '', date: '', status: 'active' }
+    ]);
   };
 
   const filteredData = useMemo(() => {
@@ -58,13 +57,18 @@ function App() {
     <Box
       sx={{
         display: 'flex',
-        gap: '50px',
+        gap: '25px',
         justifyContent: 'space-between',
         flexDirection: 'column'
       }}
     >
       <TableHeader titles={titles} onQueryChange={setQuery} />
-      <TableBody titles={titles} tableData={filteredData} onFieldChange={setData} updateData={updateData}/>
+      <TableBody
+        titles={titles}
+        tableData={filteredData}
+        onFieldChange={setData}
+        updateData={updateData}
+      />
       <Box
         sx={{
           display: 'flex',
@@ -73,6 +77,16 @@ function App() {
       >
         <Button onClick={addRow} variant="contained" fullWidth>
           Add row
+        </Button>
+        <Button
+          onClick={() => {
+            console.log('Click');
+          }}
+          color="error"
+          variant="contained"
+          fullWidth
+        >
+          Remove
         </Button>
       </Box>
     </Box>
