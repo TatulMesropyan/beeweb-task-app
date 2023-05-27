@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Table } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { onValue, ref } from 'firebase/database';
 
 import { TableBody, TableHeader } from './components/';
@@ -25,6 +25,13 @@ function App() {
     fetchData();
   }, []);
 
+  const addRow = () => {
+    setData((prevState) => [
+      ...prevState,
+      { id: null, name: '', description: '', date: '', status: '' }
+    ]);
+  };
+
   const filteredData = useMemo(() => {
     const queryKeys = Object.keys(query);
     const queryValue = queryKeys.length ? query[queryKeys[0]] : null;
@@ -41,10 +48,20 @@ function App() {
   }, [query, data]);
 
   return (
-    <Table>
+    <Box
+      sx={{
+        display: 'flex',
+        gap: '50px',
+        justifyContent: 'space-between',
+        flexDirection: 'column'
+      }}
+    >
       <TableHeader titles={titles} onQueryChange={setQuery} />
       <TableBody titles={titles} tableData={filteredData} onFieldChange={setData} />
-    </Table>
+      <Button onClick={addRow} variant="contained" fullWidth>
+        Add row
+      </Button>
+    </Box>
   );
 }
 
