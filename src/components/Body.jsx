@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { TableCell } from './';
 import { mapColumnToCell } from '../helpers';
 
-export const Body = ({ titles, tableData, onFieldChange }) => {
+export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedField, setSelectedField] = useState(null);
   const handleFieldChange = (e, field, index) => {
@@ -22,6 +22,7 @@ export const Body = ({ titles, tableData, onFieldChange }) => {
   const handleSave = () => {
     setSelectedRow(null);
     setSelectedField(null);
+    updateData()
   };
   return (
     <ClickAwayListener onClickAway={handleSave}>
@@ -29,8 +30,8 @@ export const Body = ({ titles, tableData, onFieldChange }) => {
         {tableData?.map((row, index) => {
           return (
             <TableRow key={index} sx={{ cursor: 'pointer' }}>
-              {titles.map((field, index) => (
-                <TableCell key={index} onClick={() => handleSelectField(index, field)}>
+              {titles.map((field, idx) => (
+                <TableCell key={idx} onClick={() => handleSelectField(index, field)}>
                   {isFieldSelected(index, field)
                     ? mapColumnToCell(row, field, handleFieldChange, index)
                     : row[field]}

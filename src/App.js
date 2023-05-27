@@ -15,34 +15,31 @@ function App() {
       const dataRef = ref(db, '/');
       await onValue(dataRef, (snapshot) => {
         const firebaseData = snapshot.val();
+        if(firebaseData !== null){
         const dataArray = Object.keys(firebaseData).map((key) => ({
           id: key,
           ...firebaseData[key]
         }));
         setData(dataArray);
+        }
       });
     };
     fetchData();
   }, []);
-  useEffect(() => {
+
     const updateData = async () => {
       const dataRef = ref(db, '/');
       await set(dataRef, data);
     };
 
-    updateData();
-  }, [data]);
-
-  const addRow = () => {
+  const addRow = async () => {
     setData((prevState) => [
       ...prevState,
-      { id: 12, name: 'Lana', description: 'Lorem Ipsum', date: '2020-03-11', status: 'active' }
-    ]);
+      { id:'', name: '', description: '', date: '', status: 'active' }
+    ]
+    );
   };
 
-  const removeRow = () => {
-    setData((prevState) => prevState.slice(0, -1));
-  };
   const filteredData = useMemo(() => {
     const queryKeys = Object.keys(query);
     const queryValue = queryKeys.length ? query[queryKeys[0]] : null;
@@ -57,7 +54,6 @@ function App() {
       return data;
     }
   }, [query, data]);
-
   return (
     <Box
       sx={{
@@ -68,7 +64,7 @@ function App() {
       }}
     >
       <TableHeader titles={titles} onQueryChange={setQuery} />
-      <TableBody titles={titles} tableData={filteredData} onFieldChange={setData} />
+      <TableBody titles={titles} tableData={filteredData} onFieldChange={setData} updateData={updateData}/>
       <Box
         sx={{
           display: 'flex',
@@ -77,9 +73,6 @@ function App() {
       >
         <Button onClick={addRow} variant="contained" fullWidth>
           Add row
-        </Button>
-        <Button onClick={removeRow} variant="contained" color="error" fullWidth>
-          Remove row
         </Button>
       </Box>
     </Box>
