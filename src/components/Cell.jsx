@@ -6,6 +6,7 @@ const Styledtd = styled.td`
   padding: 8px;
   border-right: 2px solid black;
   text-align: left;
+  color: white;
   left: 0;
 `;
 

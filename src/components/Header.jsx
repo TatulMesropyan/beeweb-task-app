@@ -8,15 +8,13 @@ export const Header = ({ titles, onQueryChange }) => {
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         position: 'sticky',
-        textAlign: 'center',
-        zIndex: 2,
         top: '10px',
-        backgroundColor: 'white',
+        backgroundColor: 'rgb(12, 27, 50)',
         padding: '8px',
-        borderBottom: '1px solid #ccc',
-        width: '100%'
+        borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+        zIndex: 2
       }}
     >
       {titles?.map((title, index) => (
@@ -24,7 +22,8 @@ export const Header = ({ titles, onQueryChange }) => {
           <TableCell
             sx={{
               fontWeight: 'bold',
-              fontSize: '14px'
+              fontSize: '14px',
+              color: 'white'
             }}
           >
             {title?.toUpperCase()}
@@ -34,10 +33,12 @@ export const Header = ({ titles, onQueryChange }) => {
             placeholder={`Search for ${title}...`}
             style={{
               padding: '6px',
-              border: '1px solid #ccc',
+              border: '1px solid rgba(255, 255, 255, 0.5)',
               borderRadius: '4px',
               fontSize: '14px',
-              width: '100%'
+              width: '100%',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              color: 'white'
             }}
           />
         </React.Fragment>

@@ -30,7 +30,7 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          width: '100vw'
+          backgroundColor: 'rgba(12, 27, 50, 0.9)'
         }}
       >
         {tableData?.map((row, index) => (
@@ -40,13 +40,13 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              borderBottom: '1px solid #ccc',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
               padding: '8px',
-              backgroundColor: index % 2 ? '#f8f8f8' : '#ffffff',
+              backgroundColor: index % 2 ? 'rgba(247, 169, 0, 0.7)' : 'rgba(12, 27, 50, 0.7)',
               transition: 'background-color 0.3s ease',
               cursor: 'pointer',
               '&:hover': {
-                backgroundColor: '#f2f2f2'
+                backgroundColor: index % 2 ? 'rgba(247, 169, 0, 0.9)' : 'rgba(12, 27, 50, 0.9)'
               }
             }}
           >
@@ -69,7 +69,7 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
                     paragraph
                     padding="4px"
                     fontSize="14px"
-                    color={row[field] ? 'black' : 'rgb(235, 237, 240)'}
+                    color={index % 2 ? 'rgba(12, 27, 50, 0.9)' : 'rgba(247, 169, 0, 0.9)'}
                   >
                     {row[field] ? row[field] : 'empty'}
                   </Typography>

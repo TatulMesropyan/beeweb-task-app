@@ -64,9 +64,10 @@ function App() {
     <Box
       sx={{
         display: 'flex',
-        gap: '25px',
         justifyContent: 'space-between',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        height: '100vh',
+        width: '100vw'
       }}
     >
       <TableHeader titles={titles} onQueryChange={setQuery} />
@@ -81,8 +82,8 @@ function App() {
           display: 'flex',
           gap: '15px',
           position: 'sticky',
-          bottom: '10px',
-          alignSelf: 'center'
+          alignSelf: 'center',
+          bottom: '30px'
         }}
       >
         <Button onClick={addRow} disabled={data?.length === 32} variant="contained">
