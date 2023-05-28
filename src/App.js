@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Box, Button } from '@mui/material';
 import { onValue, ref, set } from 'firebase/database';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 import { TableBody, TableHeader } from './components/';
 import { db } from './firebase';
@@ -79,20 +81,15 @@ function App() {
           display: 'flex',
           gap: '15px',
           position: 'sticky',
-          bottom: '10px'
+          bottom: '10px',
+          alignSelf: 'center'
         }}
       >
-        <Button onClick={addRow} disabled={data?.length === 32} variant="contained" fullWidth>
-          Add row
+        <Button onClick={addRow} disabled={data?.length === 32} variant="contained">
+          <AddIcon />
         </Button>
-        <Button
-          onClick={removeRow}
-          disabled={data.length === 0}
-          color="error"
-          variant="contained"
-          fullWidth
-        >
-          Remove row
+        <Button onClick={removeRow} disabled={data.length === 0} color="error" variant="contained">
+          <DeleteIcon />
         </Button>
       </Box>
     </Box>
