@@ -6,7 +6,6 @@ const Styledtd = styled.td`
   padding: 8px;
   border-right: 2px solid black;
   text-align: left;
-  background-color: ${(props) => (props.isFieldSelected ? '#f0f0f0' : 'transparent')};
   left: 0;
 `;
 

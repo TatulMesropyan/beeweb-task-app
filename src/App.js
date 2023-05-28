@@ -32,11 +32,16 @@ function App() {
     await set(dataRef, data);
   };
 
-  const addRow = async () => {
+  const addRow = () => {
     setData((prevState) => [
       ...prevState,
       { id: '', name: '', description: '', date: '', status: '' }
     ]);
+  };
+
+  const removeRow = () => {
+    setData((prevState) => prevState.slice(0, -1));
+    updateData();
   };
 
   const filteredData = useMemo(() => {
@@ -72,21 +77,22 @@ function App() {
       <Box
         sx={{
           display: 'flex',
-          gap: '15px'
+          gap: '15px',
+          position: 'sticky',
+          bottom: '10px'
         }}
       >
-        <Button onClick={addRow} variant="contained" fullWidth>
+        <Button onClick={addRow} disabled={data?.length === 32} variant="contained" fullWidth>
           Add row
         </Button>
         <Button
-          onClick={() => {
-            console.log('Click');
-          }}
+          onClick={removeRow}
+          disabled={data.length === 0}
           color="error"
           variant="contained"
           fullWidth
         >
-          Remove
+          Remove row
         </Button>
       </Box>
     </Box>

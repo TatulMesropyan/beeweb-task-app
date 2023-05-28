@@ -1,4 +1,4 @@
-import { Box, ClickAwayListener } from '@mui/material';
+import { Box, ClickAwayListener, Typography } from '@mui/material';
 import { useState } from 'react';
 import { TableCell, MapColumnToCell } from './';
 
@@ -16,6 +16,7 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
     setSelectedField(null);
     updateData();
   };
+
   const handleFieldChange = (value, field, index) => {
     const updatedRow = { ...tableData[index], [field]: value };
     const updatedData = [...tableData];
@@ -41,7 +42,12 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
               alignItems: 'center',
               borderBottom: '1px solid #ccc',
               padding: '8px',
-              backgroundColor: '#f8f8f8'
+              backgroundColor: index % 2 ? '#f8f8f8' : '#ffffff',
+              transition: 'background-color 0.3s ease',
+              cursor: 'pointer',
+              '&:hover': {
+                backgroundColor: '#f2f2f2'
+              }
             }}
           >
             {titles?.map((field, idx) => (
@@ -56,9 +62,17 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
                     field={field}
                     handleFieldChange={handleFieldChange}
                     index={index}
+                    onSave={handleSave}
                   />
                 ) : (
-                  <h3>{row[field]}</h3>
+                  <Typography
+                    paragraph
+                    padding="4px"
+                    fontSize="14px"
+                    color={row[field] ? 'black' : 'rgb(235, 237, 240)'}
+                  >
+                    {row[field] ? row[field] : 'empty'}
+                  </Typography>
                 )}
               </TableCell>
             ))}
