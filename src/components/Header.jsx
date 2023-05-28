@@ -10,7 +10,7 @@ export const Header = ({ titles, onQueryChange }) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         position: 'sticky',
-        top: '10px',
+        top: 0,
         backgroundColor: 'rgb(12, 27, 50)',
         padding: '8px',
         borderBottom: '1px solid rgba(255, 255, 255, 0.2)',

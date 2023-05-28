@@ -8,6 +8,7 @@ import { TableBody, TableHeader } from './components/';
 import { db } from './firebase';
 
 const titles = ['id', 'name', 'description', 'date', 'status'];
+
 function App() {
   const [data, setData] = useState([]);
   const [query, setQuery] = useState({});
@@ -60,38 +61,38 @@ function App() {
       return data;
     }
   }, [query, data]);
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        height: '100vh',
-        width: '100vw'
-      }}
-    >
-      <TableHeader titles={titles} onQueryChange={setQuery} />
-      <TableBody
-        titles={titles}
-        tableData={filteredData}
-        onFieldChange={setData}
-        updateData={updateData}
-      />
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '15px',
-          position: 'sticky',
-          alignSelf: 'center',
-          bottom: '30px'
-        }}
-      >
-        <Button onClick={addRow} disabled={data?.length === 32} variant="contained">
-          <AddIcon />
-        </Button>
-        <Button onClick={removeRow} disabled={data.length === 0} color="error" variant="contained">
-          <DeleteIcon />
-        </Button>
+    <Box sx={{ height: '100vh' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <TableHeader titles={titles} onQueryChange={setQuery} />
+        <TableBody
+          titles={titles}
+          tableData={filteredData}
+          onFieldChange={setData}
+          updateData={updateData}
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '15px',
+            position: 'sticky',
+            alignSelf: 'center',
+            bottom: '30px'
+          }}
+        >
+          <Button onClick={addRow} disabled={data?.length === 32} variant="contained">
+            <AddIcon />
+          </Button>
+          <Button
+            onClick={removeRow}
+            disabled={data.length === 0}
+            color="error"
+            variant="contained"
+          >
+            <DeleteIcon />
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

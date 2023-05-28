@@ -46,7 +46,8 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
               transition: 'background-color 0.3s ease',
               cursor: 'pointer',
               '&:hover': {
-                backgroundColor: index % 2 ? 'rgba(247, 169, 0, 0.9)' : 'rgba(12, 27, 50, 0.9)'
+                backgroundColor: index % 2 ? 'rgba(247, 169, 0, 0.7)' : 'rgba(12, 27, 50, 0.7)',
+                color: index % 2 ? 'white' : ''
               }
             }}
           >
@@ -64,14 +65,30 @@ export const Body = ({ titles, tableData, onFieldChange, updateData }) => {
                     index={index}
                     onSave={handleSave}
                   />
-                ) : (
+                ) : row[field] ? (
                   <Typography
+                    component="div"
                     paragraph
                     padding="4px"
                     fontSize="14px"
-                    color={index % 2 ? 'rgba(12, 27, 50, 0.9)' : 'rgba(247, 169, 0, 0.9)'}
+                    sx={{
+                      color: index % 2 ? 'rgba(12, 27, 50, 0.9)' : 'rgba(247, 169, 0, 0.9)',
+                      width: '100%'
+                    }}
                   >
-                    {row[field] ? row[field] : 'empty'}
+                    {row[field]}
+                  </Typography>
+                ) : (
+                  <Typography
+                    component="div"
+                    paragraph
+                    padding="4px"
+                    fontSize="14px"
+                    sx={{
+                      color: 'gray'
+                    }}
+                  >
+                    empty
                   </Typography>
                 )}
               </TableCell>
